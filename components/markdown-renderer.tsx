@@ -1,7 +1,7 @@
 "use client"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 import { useTheme } from "next-themes"
 
 interface MarkdownRendererProps {
@@ -25,12 +25,12 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       }}
     >
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm as any]}
         components={{
           // Skip h1 rendering to avoid duplicate title
           h1: () => null,
 
-          code({ node, inline, className, children, ...props }) {
+          code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode; [key: string]: any })  {
             // Ensure children is a string
             const value = children ? String(children).replace(/\n$/, "") : ""
 

@@ -1,10 +1,10 @@
 "use client"
 
-import { Contact } from "@/components/contact"
-import { Industry } from "@/components/industry"
-import { Hero } from "@/components/hero"
-import { Interests } from "@/components/interests"
-import { Projects } from "@/components/projects"
+import { Contact } from "../components/contact"
+import { Industry } from "../components/industry"
+import { Hero } from "../components/hero"
+import { Interests } from "../components/interests"
+import { Projects } from "../components/projects"
 import { useEffect } from "react"
 import { useTheme } from "next-themes"
 

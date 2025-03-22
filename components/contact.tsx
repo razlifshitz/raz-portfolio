@@ -2,14 +2,14 @@
 
 import type React from "react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { useEffect, useRef, useState } from "react"
 import { useInView, useAnimation } from "framer-motion"
 import { Send, Coffee } from "lucide-react"
 
 export function Contact() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, threshold: 0.1 })
+  const isInView = useInView(ref, { once: false, amount: 0.1 })
   const mainControls = useAnimation()
   const [formState, setFormState] = useState({
     name: "",

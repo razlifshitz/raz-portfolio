@@ -1,4 +1,4 @@
-import { getAllPosts, formatDate } from "@/lib/blog"
+import { getAllPosts, formatDate } from "../../lib/blog"
 import Link from "next/link"
 import Image from "next/image"
 

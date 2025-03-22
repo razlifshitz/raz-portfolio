@@ -1,9 +1,9 @@
-import { getPostBySlug, formatDate, blogPosts } from "@/lib/blog"
+import { getPostBySlug, formatDate, blogPosts } from "../../../lib/blog"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
-import { MarkdownRenderer } from "@/components/markdown-renderer"
+import { MarkdownRenderer } from "../../../components/markdown-renderer"
 
 export const dynamic = "force-static"
 
@@ -16,7 +16,7 @@ interface BlogPostPageProps {
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
-  }))
+  }));
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {

@@ -8,7 +8,7 @@ import Image from "next/image"
 
 export function Industry() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, threshold: 0.1 })
+  const isInView = useInView(ref, { once: false, amount: 0.1 })
   const mainControls = useAnimation()
 
   useEffect(() => {

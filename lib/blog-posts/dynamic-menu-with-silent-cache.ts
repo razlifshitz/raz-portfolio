@@ -1,5 +1,3 @@
-"use client"
-
 import type { BlogPost } from "../blog-types"
 
 export const post: BlogPost = {

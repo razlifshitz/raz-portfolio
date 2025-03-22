@@ -1,6 +1,5 @@
-import type { Config } from "tailwindcss"
-
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -9,7 +8,6 @@ const config = {
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -61,79 +59,20 @@ const config = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
+          from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          to: { height: 0 },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      fontFamily: {
-        sans: ["acumin-pro-semi-condensed", "sans-serif"],
-      },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: "65ch",
-            color: "var(--tw-prose-body)",
-            a: {
-              color: "rgb(75, 161, 204)",
-              textDecoration: "underline",
-              fontWeight: "500",
-            },
-            "h1, h2, h3, h4": {
-              color: "var(--tw-prose-headings)",
-              fontWeight: "700",
-            },
-            code: {
-              color: "var(--tw-prose-code)",
-              fontWeight: "600",
-              backgroundColor: "var(--tw-prose-pre-bg)",
-              borderRadius: "0.25rem",
-              paddingLeft: "0.25rem",
-              paddingRight: "0.25rem",
-            },
-            "code::before": {
-              content: '""',
-            },
-            "code::after": {
-              content: '""',
-            },
-            pre: {
-              color: "var(--tw-prose-pre-code)",
-              backgroundColor: "var(--tw-prose-pre-bg)",
-              borderRadius: "0.375rem",
-              padding: "0.75rem 1rem",
-            },
-            "pre code": {
-              backgroundColor: "transparent",
-              borderWidth: "0",
-              borderRadius: "0",
-              padding: "0",
-              fontWeight: "inherit",
-              color: "inherit",
-              fontSize: "inherit",
-              fontFamily: "inherit",
-              lineHeight: "inherit",
-            },
-            "pre code::before": {
-              content: "none",
-            },
-            "pre code::after": {
-              content: "none",
-            },
-          },
-        },
-      },
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config
-
-export default config
+}
 
