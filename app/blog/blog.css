@@ -1,0 +1,136 @@
+/* Blog post styling */
+.blog-content {
+  max-width: 65ch;
+  margin: 0 auto;
+}
+
+/* Reset all code block styling completely */
+pre,
+code,
+.code-block {
+  margin: 0;
+  padding: 0;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent;
+}
+
+/* New clean code block styling */
+pre.code-block {
+  background-color: #f5f5f5 !important; /* Light grey background */
+  color: #24292e !important; /* Darker text for better contrast */
+  padding: 0.5rem !important;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0 !important;
+  overflow-x: auto;
+}
+
+/* Syntax highlighting with better contrast */
+.code-block .keyword {
+  color: #d73a49 !important; /* Red for keywords */
+  font-weight: bold;
+}
+
+.code-block .function {
+  color: #6f42c1 !important; /* Purple for functions */
+}
+
+.code-block .string {
+  color: #032f62 !important; /* Dark blue for strings */
+}
+
+.code-block .number {
+  color: #005cc5 !important; /* Blue for numbers */
+}
+
+/* Make comments a distinct color with better contrast */
+.code-block .comment {
+  color: #6a737d !important; /* Medium grey for comments */
+  font-style: italic;
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  background-color: #f1f5f9;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+.dark :not(pre) > code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark mode text color for blog content */
+.dark .prose {
+  color: #e2e8f0 !important; /* Light text for dark mode */
+}
+
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose strong {
+  color: #f8fafc !important; /* Lighter text for headings in dark mode */
+}
+
+.dark .prose p,
+.dark .prose li {
+  color: #e2e8f0 !important; /* Light text for paragraphs in dark mode */
+}
+
+/* Improve table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+}
+
+.dark th,
+.dark td {
+  border-color: #2d3748;
+}
+
+th {
+  background-color: #f7fafc;
+  font-weight: 600;
+}
+
+.dark th {
+  background-color: #2d3748;
+}
+
+/* Blockquote styling */
+blockquote {
+  border-left: 4px solid #e2e8f0;
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.dark blockquote {
+  border-left-color: #4a5568;
+}
+
+/* Override any potential markdown styles */
+.prose pre {
+  background-color: #f5f5f5 !important;
+  color: #24292e !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.prose code {
+  background-color: #f5f5f5 !important;
+  color: #24292e !important;
+}
+
