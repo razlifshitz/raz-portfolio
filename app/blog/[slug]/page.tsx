@@ -1,11 +1,11 @@
 import { getPostBySlug, formatDate, blogPosts } from "@/lib/blog"
 import { notFound } from "next/navigation"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
+
+export const dynamic = "force-static"
 
 interface BlogPostPageProps {
   params: {
@@ -13,7 +13,6 @@ interface BlogPostPageProps {
   }
 }
 
-// This ensures all blog posts are statically generated at build time
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
@@ -29,7 +28,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Header />
       <main className="pt-20">
         <article className="py-10 bg-white dark:bg-gray-900">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,7 +74,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </article>
       </main>
-      <Footer />
     </div>
   )
 }

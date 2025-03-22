@@ -5,7 +5,6 @@ import type { BlogPost } from "./blog-types"
 import { post as dynamicMenuPost } from "./blog-posts/dynamic-menu-with-silent-cache"
 
 // Add all blog posts to this array
-// When you create a new blog post file, import it above and add it to this array
 export const blogPosts: BlogPost[] = [
   dynamicMenuPost,
   // Add more posts here as you create them

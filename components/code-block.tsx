@@ -5,6 +5,9 @@ interface CodeBlockProps {
 }
 
 export function CodeBlock({ value }: CodeBlockProps) {
+  // Ensure value is always a string
+  const safeValue = value || ""
+
   return (
     <div className="relative" style={{ margin: "0.5rem 0" }}>
       <pre
@@ -20,7 +23,7 @@ export function CodeBlock({ value }: CodeBlockProps) {
         }}
       >
         <code
-          dangerouslySetInnerHTML={{ __html: value }}
+          dangerouslySetInnerHTML={{ __html: safeValue }}
           style={{
             backgroundColor: "transparent",
             color: "#333",
