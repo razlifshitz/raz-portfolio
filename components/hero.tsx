@@ -59,7 +59,7 @@ export function Hero() {
   }
 
   return (
-    <div ref={heroRef} className="min-h-screen flex items-center pt-8 md:pt-16">
+    <div ref={heroRef} className="min-h-screen flex items-center pt-8 md:pt-16 relative">
       <motion.div
         className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20"
         variants={containerVariants}
@@ -144,7 +144,7 @@ export function Hero() {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <ArrowDown className="h-6 w-6 text-gray-400 dark:text-gray-500" />
       </div>
     </div>
