@@ -6,7 +6,7 @@ export const post: BlogPost = {
   date: "2023-05-15",
   description:
     "How I solved a UX challenge with a two-tier caching approach that updates menus silently without disrupting the user experience.",
-  image: "/images/blog/menu-feature.jpg", // Changed to local image path
+  image: "/images/blog/menu-feature.jpg",
   tags: ["React", "UX", "Frontend", "LocalStorage"],
   content: `
 As a frontend engineer at AppsFlyer, I recently tackled an interesting UX challenge: creating a dynamic menu that shows users their recently clicked items, but without causing disruptive changes while they're actively using the menu.

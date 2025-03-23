@@ -3,11 +3,15 @@ import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { cn } from "../lib/utils"
 import { useTheme } from "next-themes"
+import type { ReactMarkdownOptions } from "react-markdown/lib/react-markdown"
 
 interface MarkdownRendererProps {
   content: string
   className?: string
 }
+
+// Define proper types for the components
+type MarkdownComponents = ReactMarkdownOptions["components"]
 
 export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
   const { resolvedTheme } = useTheme()
@@ -25,12 +29,12 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       }}
     >
       <ReactMarkdown
-        remarkPlugins={[remarkGfm as any]}
+        remarkPlugins={[remarkGfm]}
         components={{
           // Skip h1 rendering to avoid duplicate title
           h1: () => null,
 
-          code({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode; [key: string]: any })  {
+          code({ node, inline, className, children, ...props }) {
             // Ensure children is a string
             const value = children ? String(children).replace(/\n$/, "") : ""
 

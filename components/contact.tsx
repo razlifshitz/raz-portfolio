@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { Button } from "./ui/button"
+import { Button } from "../components/ui/button"
 import { useEffect, useRef, useState } from "react"
 import { useInView, useAnimation } from "framer-motion"
 import { Send, Coffee } from "lucide-react"

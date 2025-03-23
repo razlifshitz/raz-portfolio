@@ -78,6 +78,13 @@
   }
 }
 
+/* Hardware acceleration */
+.hardware-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 /* Custom styles for form elements */
 input,
 textarea {

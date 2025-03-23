@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Header } from "./header"
 import { Footer } from "./footer"
@@ -27,7 +26,7 @@ export function PersistentLayout({ children }: { children: React.ReactNode }) {
   // preventing any server/client mismatch issues
   if (!mounted) {
     return (
-      <div style={{ visibility: "hidden" }}>
+      <div style={{ visibility: "visible", opacity: 1 }}>
         <Header />
         <div>{children}</div>
         <Footer />

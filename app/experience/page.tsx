@@ -1,5 +1,5 @@
 "use client"
-import { Timeline } from "../../components/timeline"
+import { Timeline } from "@/components/timeline"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useEffect } from "react"
