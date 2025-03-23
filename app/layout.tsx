@@ -7,9 +7,32 @@ import { PersistentLayout } from "../components/persistent-layout"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Raz Lifshitz - Frontend Engineer",
+  title: "Raz Lifshitz",
   description: "Frontend Engineer, Chess Player, Photographer, and Maker",
-    generator: 'v0.dev'
+  generator: "v0.dev",
+  metadataBase: new URL("https://razlifshitz.com"), // Replace with your actual domain
+  openGraph: {
+    title: "Raz Lifshitz",
+    description: "Frontend Engineer, Chess Player, Photographer, and Maker",
+    url: "https://razlifshitz.com", // Replace with your actual domain
+    siteName: "Raz Lifshitz",
+    images: [
+      {
+        url: "/og-image.png", // This will be the thumbnail image
+        width: 1200,
+        height: 630,
+        alt: "Raz Lifshitz",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Raz Lifshitz",
+    description: "Frontend Engineer, Chess Player, Photographer, and Maker",
+    images: ["/og-image.png"], // Same image as OpenGraph
+  },
 }
 
 export default function RootLayout({
