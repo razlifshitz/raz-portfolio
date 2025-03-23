@@ -299,36 +299,6 @@ export function Header() {
               Home
             </Link>
             <Link
-              href="/#industry"
-              className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
-              onClick={(e) => handleAnchorClick(e, "/#industry")}
-              style={{
-                color: getActiveLinkColor(pathname === "/" && activeSection === "industry"),
-              }}
-            >
-              Industry
-            </Link>
-            <Link
-              href="/#projects"
-              className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
-              onClick={(e) => handleAnchorClick(e, "/#projects")}
-              style={{
-                color: getActiveLinkColor(pathname === "/" && activeSection === "projects"),
-              }}
-            >
-              Projects
-            </Link>
-            <Link
-              href="/#interests"
-              className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
-              onClick={(e) => handleAnchorClick(e, "/#interests")}
-              style={{
-                color: getActiveLinkColor(pathname === "/" && activeSection === "interests"),
-              }}
-            >
-              Interests
-            </Link>
-            <Link
               href="/#contact"
               className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
               onClick={(e) => handleAnchorClick(e, "/#contact")}
