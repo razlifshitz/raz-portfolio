@@ -1,7 +1,5 @@
 "use client"
 import ReactMarkdown from "react-markdown"
-import type React from "react"
-
 import remarkGfm from "remark-gfm"
 import { cn } from "../lib/utils"
 import { useTheme } from "next-themes"
@@ -27,6 +25,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       }}
     >
       <ReactMarkdown
+        // @ts-ignore - Ignoring type issues with remark-gfm
         remarkPlugins={[remarkGfm]}
         components={{
           // Skip h1 rendering to avoid duplicate title
@@ -115,4 +114,3 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
     </div>
   )
 }
-
