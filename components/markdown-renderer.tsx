@@ -1,17 +1,15 @@
 "use client"
 import ReactMarkdown from "react-markdown"
+import type React from "react"
+
 import remarkGfm from "remark-gfm"
 import { cn } from "../lib/utils"
 import { useTheme } from "next-themes"
-import type { ReactMarkdownOptions } from "react-markdown/lib/react-markdown"
 
 interface MarkdownRendererProps {
   content: string
   className?: string
 }
-
-// Define proper types for the components
-type MarkdownComponents = ReactMarkdownOptions["components"]
 
 export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
   const { resolvedTheme } = useTheme()
@@ -22,7 +20,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
 
   return (
     <div
-      className={cn("prose prose-lg max-w-none", className)}
+      className={cn("prose prose-lg max-w-none blog-content", className)}
       style={{
         maxWidth: "none",
         color: isDark ? "#e2e8f0" : "inherit",
