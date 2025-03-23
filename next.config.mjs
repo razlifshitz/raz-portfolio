@@ -4,17 +4,19 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com', 'v0.blob.com'],
   },
-  // Completely empty experimental section
-  experimental: {},
-  // Add output configuration to static export
-  output: 'export',
-  // Disable image optimization for static export
-  images: {
-    unoptimized: true,
-    domains: ['images.unsplash.com', 'v0.blob.com'],
-  },
-  // Disable source maps in production
-  productionBrowserSourceMaps: false,
+  // Disable the problematic build trace collection
+  experimental: {
+    // Disable the feature causing the stack overflow
+    outputFileTracingRoot: null,
+    outputFileTracingExcludes: {
+      '*': [
+        'node_modules/**',
+        '.git/**',
+        '.next/**',
+      ],
+    },
+  }
 }
 
 export default nextConfig
+
