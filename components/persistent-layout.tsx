@@ -14,12 +14,6 @@ export function PersistentLayout({ children }: { children: React.ReactNode }) {
   // Set mounted state once the component is mounted
   useEffect(() => {
     setMounted(true)
-
-    // Set CSS variables for theme colors
-    document.documentElement.style.setProperty(
-      "--background-color",
-      document.documentElement.classList.contains("dark") ? "rgba(17, 24, 39, 0.9)" : "rgba(255, 255, 255, 0.9)",
-    )
   }, [])
 
   // This ensures the layout is only rendered once on the client

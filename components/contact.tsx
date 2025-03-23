@@ -9,7 +9,7 @@ import { Send, Coffee } from "lucide-react"
 
 export function Contact() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.1 })
+  const isInView = useInView(ref, { once: false, amount: 0.05 })
   const mainControls = useAnimation()
   const [formState, setFormState] = useState({
     name: "",

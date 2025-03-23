@@ -11,30 +11,43 @@ import { useTheme } from "next-themes"
 export default function Home() {
   const { resolvedTheme } = useTheme()
 
-  // Set background color immediately on mount to prevent flashing
   useEffect(() => {
-    if (resolvedTheme === "dark") {
-      document.documentElement.classList.add("dark")
-      document.documentElement.style.backgroundColor = "#111827"
-      document.body.style.backgroundColor = "#111827"
-    } else {
-      document.documentElement.style.backgroundColor = "#ffffff"
-      document.body.style.backgroundColor = "#ffffff"
-    }
-  }, [resolvedTheme])
+    // Get the section to scroll to, if any
+    const sectionId = sessionStorage.getItem("scrollToSection")
 
-  // Handle anchor links scrolling
-  useEffect(() => {
-    // Check if there's a hash in the URL when the component mounts
-    if (window.location.hash) {
+    if (sectionId) {
+      // Clear the flag immediately
+      sessionStorage.removeItem("scrollToSection")
+
+      // Use setTimeout to ensure the DOM is ready
+      setTimeout(() => {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          // Scroll directly to the element with a slight offset for the header
+          const headerOffset = 80 // Account for fixed header
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+          const offsetPosition = elementPosition - headerOffset
+
+          // Use immediate scrolling without animation
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "auto",
+          })
+        }
+      }, 100)
+    } else if (sessionStorage.getItem("scrollToTop") === "true") {
+      // Only scroll to top if explicitly requested
+      sessionStorage.removeItem("scrollToTop")
+      window.scrollTo(0, 0)
+    } else if (window.location.hash) {
+      // If there's a hash in the URL, scroll to that section
       const id = window.location.hash.substring(1)
-      const element = document.getElementById(id)
-      if (element) {
-        // Add a slight delay to ensure all elements are rendered
-        setTimeout(() => {
+      setTimeout(() => {
+        const element = document.getElementById(id)
+        if (element) {
           element.scrollIntoView({ behavior: "smooth" })
-        }, 100)
-      }
+        }
+      }, 100)
     }
   }, [])
 

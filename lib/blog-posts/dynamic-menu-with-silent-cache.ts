@@ -2,11 +2,11 @@ import type { BlogPost } from "../blog-types"
 
 export const post: BlogPost = {
   slug: "dynamic-menu-with-silent-cache",
-  title: "Silent Cache: Creating Seamless Dynamic Menus Without Disrupting Users",
-  date: "2023-05-15",
+  title: "The Silent Cache Pattern: Enhancing UX by Separating Data Recording from Display",
+  date: "2025-03-22",
   description:
     "How I solved a UX challenge with a two-tier caching approach that updates menus silently without disrupting the user experience.",
-  image: "/images/blog/menu-feature.jpg",
+  image: "https://images.unsplash.com/photo-1535016120720-40c646be5580?q=80&w=2070&auto=format&fit=crop",
   tags: ["React", "UX", "Frontend", "LocalStorage"],
   content: `
 As a frontend engineer at AppsFlyer, I recently tackled an interesting UX challenge: creating a dynamic menu that shows users their recently clicked items, but without causing disruptive changes while they're actively using the menu.
@@ -23,7 +23,6 @@ However, we quickly identified a potential UX issue. If the menu updated immedia
 2. Display recently used items at the top of the menu
 3. Don't reorganize the menu immediately after a click (which would disrupt the user)
 4. Ensure the updated menu appears when the user returns to the page
-5. Support multiple devices and login sessions
 
 ## The Solution: Silent Cache
 
@@ -79,39 +78,6 @@ setRecentItems(silentCache);
 }, []);
 \`\`\`
 
-### 4. Multi-Device Support
-
-To handle users who might be logged in from multiple devices, we also implemented a server-side component:
-
-\`\`\`
-// When user logs in, fetch their recent items from the server
-useEffect(() => {
-if (user) {
-  api.getUserRecentItems().then(serverItems => {
-    // Merge server items with local silent cache
-    const silentCache = JSON.parse(localStorage.getItem('menu-silent-cache') || '[]');
-    
-    // Combine and deduplicate (server items take precedence)
-    const combinedItems = [...serverItems, ...silentCache];
-    const uniqueItems = Array.from(new Set(combinedItems)).slice(0, 5);
-    
-    // Update silent cache with combined data
-    localStorage.setItem('menu-silent-cache', JSON.stringify(uniqueItems));
-  });
-}
-}, [user]);
-
-// When user clicks an item, also send to server
-function handleMenuItemClick(itemId) {
-// Update local silent cache as before...
-
-// Also send to server if user is logged in
-if (user) {
-  api.updateUserRecentItems(itemId);
-}
-}
-\`\`\`
-
 ## The Result
 
 This solution successfully addressed all our requirements:
@@ -123,8 +89,6 @@ This solution successfully addressed all our requirements:
 ✅ The menu doesn't reorganize during the current session
 
 ✅ The updated menu appears when the user returns to the page
-
-✅ Multiple devices are supported through server synchronization
 
 The product team was thrilled with the implementation, as it provided the functionality they wanted without compromising the user experience. Users get the benefit of quick access to their frequently used items without the confusion of a constantly reorganizing menu.
 

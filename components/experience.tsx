@@ -5,7 +5,7 @@ import { motion, useInView, useAnimation } from "framer-motion"
 
 export function Experience() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.1 })
+  const isInView = useInView(ref, { once: false, amount: 0.05 })
   const mainControls = useAnimation()
 
   useEffect(() => {

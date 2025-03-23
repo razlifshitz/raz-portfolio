@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X, Moon, Sun } from "lucide-react"
@@ -28,6 +27,13 @@ export function Header() {
     // Set initial scroll state to prevent flickering
     setScrolled(window.scrollY > 10)
   }, [])
+
+  // Reset active section when navigating away from home page
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("")
+    }
+  }, [pathname])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,49 +79,50 @@ export function Header() {
   }, [isMenuOpen, pathname])
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("/#")) {
-      e.preventDefault()
-
-      // If we're already on the home page
-      if (pathname === "/") {
-        const id = href.substring(2)
-        const element = document.getElementById(id)
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" })
-          setIsMenuOpen(false)
-        }
-      } else {
-        // Navigate to home page with the hash
-        window.location.href = href
-      }
-    }
-
+    e.preventDefault()
     setIsMenuOpen(false)
+
+    // Extract the section ID from the href
+    const sectionId = href.startsWith("/#") ? href.substring(2) : ""
+
+    // If we're already on the home page
+    if (pathname === "/") {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        // Use scrollIntoView with a block: "start" to ensure the section is at the top
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      // If we're on another page (like blog), navigate to home with the section target
+      sessionStorage.setItem("scrollToSection", sectionId)
+      router.push("/")
+    }
   }
 
   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
+    setIsMenuOpen(false)
 
+    // If we're already on the home page, scroll to top
     if (pathname === "/") {
-      // If already on home page, scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" })
     } else {
-      // Navigate to home page
+      // Navigate to home page and scroll to top
+      sessionStorage.setItem("scrollToTop", "true")
       router.push("/")
     }
-
-    setIsMenuOpen(false)
   }
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
+    setIsMenuOpen(false)
 
-    if (pathname === "/") {
+    if (pathname !== "/") {
+      sessionStorage.setItem("scrollToTop", "true")
+      router.push("/")
+    } else {
       // If already on home page, scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" })
-    } else {
-      // Navigate to home page
-      router.push("/")
     }
   }
 
@@ -123,7 +130,10 @@ export function Header() {
     e.preventDefault()
     setIsMenuOpen(false)
     router.push("/experience")
-    // Scroll to top will be handled in the experience page component
+  }
+
+  const handleBlogClick = () => {
+    setIsMenuOpen(false)
   }
 
   const toggleTheme = () => {
@@ -175,7 +185,7 @@ export function Header() {
                 href="/#industry"
                 className="text-sm font-light transition-colors text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
                 style={{
-                  color: getActiveLinkColor(activeSection === "industry"),
+                  color: getActiveLinkColor(pathname === "/" && activeSection === "industry"),
                 }}
                 onClick={(e) => handleAnchorClick(e, "/#industry")}
               >
@@ -185,7 +195,7 @@ export function Header() {
                 href="/#projects"
                 className="text-sm font-light transition-colors text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
                 style={{
-                  color: getActiveLinkColor(activeSection === "projects"),
+                  color: getActiveLinkColor(pathname === "/" && activeSection === "projects"),
                 }}
                 onClick={(e) => handleAnchorClick(e, "/#projects")}
               >
@@ -195,7 +205,7 @@ export function Header() {
                 href="/#interests"
                 className="text-sm font-light transition-colors text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
                 style={{
-                  color: getActiveLinkColor(activeSection === "interests"),
+                  color: getActiveLinkColor(pathname === "/" && activeSection === "interests"),
                 }}
                 onClick={(e) => handleAnchorClick(e, "/#interests")}
               >
@@ -205,7 +215,7 @@ export function Header() {
                 href="/#contact"
                 className="text-sm font-light transition-colors text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
                 style={{
-                  color: getActiveLinkColor(activeSection === "contact"),
+                  color: getActiveLinkColor(pathname === "/" && activeSection === "contact"),
                 }}
                 onClick={(e) => handleAnchorClick(e, "/#contact")}
               >
@@ -217,6 +227,7 @@ export function Header() {
                 style={{
                   color: getActiveLinkColor(pathname === "/experience"),
                 }}
+                onClick={handleTimelineClick}
               >
                 Timeline
               </Link>
@@ -226,6 +237,7 @@ export function Header() {
                 style={{
                   color: getActiveLinkColor(pathname === "/blog" || pathname.startsWith("/blog/")),
                 }}
+                onClick={handleBlogClick}
               >
                 Blog
               </Link>
@@ -291,7 +303,7 @@ export function Header() {
               className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
               onClick={(e) => handleAnchorClick(e, "/#industry")}
               style={{
-                color: getActiveLinkColor(activeSection === "industry"),
+                color: getActiveLinkColor(pathname === "/" && activeSection === "industry"),
               }}
             >
               Industry
@@ -301,7 +313,7 @@ export function Header() {
               className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
               onClick={(e) => handleAnchorClick(e, "/#projects")}
               style={{
-                color: getActiveLinkColor(activeSection === "projects"),
+                color: getActiveLinkColor(pathname === "/" && activeSection === "projects"),
               }}
             >
               Projects
@@ -311,7 +323,7 @@ export function Header() {
               className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
               onClick={(e) => handleAnchorClick(e, "/#interests")}
               style={{
-                color: getActiveLinkColor(activeSection === "interests"),
+                color: getActiveLinkColor(pathname === "/" && activeSection === "interests"),
               }}
             >
               Interests
@@ -321,7 +333,7 @@ export function Header() {
               className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
               onClick={(e) => handleAnchorClick(e, "/#contact")}
               style={{
-                color: getActiveLinkColor(activeSection === "contact"),
+                color: getActiveLinkColor(pathname === "/" && activeSection === "contact"),
               }}
             >
               Contact
@@ -339,7 +351,7 @@ export function Header() {
             <Link
               href="/blog"
               className="text-gray-600 dark:text-gray-300 hover:text-[#4ba1cc] dark:hover:text-[#60a5ff]"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleBlogClick}
               style={{
                 color: getActiveLinkColor(pathname === "/blog" || pathname.startsWith("/blog/")),
               }}

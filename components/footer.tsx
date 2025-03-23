@@ -1,7 +1,32 @@
+"use client"
+
+import type React from "react"
+
 import { Github, Linkedin, Mail, Twitter, Camera, Phone } from "lucide-react"
 import Link from "next/link"
+import { useRouter, usePathname } from "next/navigation"
 
 export function Footer() {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault()
+
+    // Check if we're on the home page
+    if (pathname === "/") {
+      // If on home page, scroll to the section
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } else {
+      // If on another page, set flag and navigate to home
+      sessionStorage.setItem("scrollToSection", sectionId)
+      router.push("/")
+    }
+  }
+
   return (
     <footer className="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 py-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,6 +102,11 @@ export function Footer() {
                 <Link
                   href="/"
                   className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    sessionStorage.setItem("scrollToTop", "true")
+                    router.push("/")
+                  }}
                 >
                   Home
                 </Link>
@@ -85,6 +115,7 @@ export function Footer() {
                 <Link
                   href="/#industry"
                   className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  onClick={(e) => handleSectionClick(e, "industry")}
                 >
                   Industry
                 </Link>
@@ -101,6 +132,7 @@ export function Footer() {
                 <Link
                   href="/#projects"
                   className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  onClick={(e) => handleSectionClick(e, "projects")}
                 >
                   Projects
                 </Link>
@@ -109,6 +141,7 @@ export function Footer() {
                 <Link
                   href="/#interests"
                   className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  onClick={(e) => handleSectionClick(e, "interests")}
                 >
                   Interests
                 </Link>
@@ -117,6 +150,7 @@ export function Footer() {
                 <Link
                   href="/#contact"
                   className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                  onClick={(e) => handleSectionClick(e, "contact")}
                 >
                   Contact
                 </Link>

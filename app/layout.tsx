@@ -25,19 +25,15 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-          (function() {
-            try {
-              const mode = localStorage.getItem('theme');
-              if (mode === 'dark' || (!mode && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-                document.documentElement.style.backgroundColor = '#111827';
-                document.body.style.backgroundColor = '#111827';
-              } else {
-                document.documentElement.classList.remove('dark');
-              }
-            } catch (e) {}
-          })();
-        `,
+(function() {
+  try {
+    const mode = localStorage.getItem('theme');
+    if (mode === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  } catch (e) {}
+})();
+`,
           }}
         />
       </head>
