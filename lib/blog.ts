@@ -10,6 +10,14 @@ export const blogPosts: BlogPost[] = [
   // Add more posts here as you create them
 ]
 
+// Add this function to calculate reading time
+export function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200 // Average reading speed
+  const wordCount = content.split(/\s+/).length
+  const readingTime = Math.ceil(wordCount / wordsPerMinute)
+  return Math.max(1, readingTime) // Ensure at least 1 minute
+}
+
 // Get all blog posts sorted by date
 export function getAllPosts() {
   return [...blogPosts].sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))

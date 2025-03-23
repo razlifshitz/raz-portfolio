@@ -1,6 +1,7 @@
-import { getAllPosts, formatDate } from "../../lib/blog"
+import { getAllPosts, formatDate, calculateReadingTime } from "../../lib/blog"
 import Link from "next/link"
 import Image from "next/image"
+import { Clock } from "lucide-react"
 
 export const dynamic = "force-static"
 
@@ -37,9 +38,15 @@ export default function BlogPage() {
                         </div>
                       )}
                       <div className="p-6">
-                        <time dateTime={post.date} className="text-sm text-gray-500 dark:text-gray-400">
-                          {formatDate(post.date)}
-                        </time>
+                        <div className="flex items-center justify-between">
+                          <time dateTime={post.date} className="text-sm text-gray-500 dark:text-gray-400">
+                            {formatDate(post.date)}
+                          </time>
+                          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <Clock className="w-3.5 h-3.5 mr-1" />
+                            <span>{calculateReadingTime(post.content)} min read</span>
+                          </div>
+                        </div>
                         <h3 className="mt-2 text-xl font-medium text-gray-900 dark:text-white">{post.title}</h3>
 
                         {post.tags && post.tags.length > 0 && (

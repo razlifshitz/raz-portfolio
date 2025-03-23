@@ -1,9 +1,10 @@
-import { getPostBySlug, formatDate, blogPosts } from "../../../lib/blog"
+import { getPostBySlug, formatDate, blogPosts, calculateReadingTime } from "../../../lib/blog"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Clock } from "lucide-react"
 import { MarkdownRenderer } from "../../../components/markdown-renderer"
+import { ReadingProgressBar } from "../../../components/reading-progress-bar"
 
 export const dynamic = "force-static"
 
@@ -26,10 +27,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound()
   }
 
+  const readingTime = calculateReadingTime(post.content)
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <main className="pt-20">
-        <article className="py-10 bg-white dark:bg-gray-900">
+      <ReadingProgressBar />
+      <main>
+        <article className="py-10 bg-white dark:bg-gray-900 pt-4">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <Link
               href="/blog"
@@ -41,9 +45,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
             <div className="mb-8">
               <h1 className="text-3xl md:text-4xl font-light text-gray-900 dark:text-white mb-4">{post.title}</h1>
-              <time dateTime={post.date} className="text-gray-500 dark:text-gray-400">
-                {formatDate(post.date)}
-              </time>
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <time dateTime={post.date} className="text-gray-500 dark:text-gray-400">
+                  {formatDate(post.date)}
+                </time>
+                <div className="flex items-center text-gray-500 dark:text-gray-400">
+                  <Clock className="w-4 h-4 mr-1" />
+                  <span>{readingTime} min read</span>
+                </div>
+              </div>
               {post.tags && post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-4">
                   {post.tags.map((tag) => (
