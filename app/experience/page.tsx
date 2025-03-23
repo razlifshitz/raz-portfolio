@@ -24,6 +24,16 @@ export default function ExperiencePage() {
                   download
                   className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 inline-flex items-center group"
                   style={{ color: "rgb(75, 161, 204)" }}
+                  onClick={(e) => {
+                    // This ensures the download attribute works properly across browsers
+                    const link = document.createElement("a")
+                    link.href = "/raz-lifshitz-cv.pdf"
+                    link.download = "raz-lifshitz-cv.pdf"
+                    document.body.appendChild(link)
+                    link.click()
+                    document.body.removeChild(link)
+                    e.preventDefault()
+                  }}
                 >
                   Download my CV
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
