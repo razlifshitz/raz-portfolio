@@ -2,8 +2,40 @@ import { getAllPosts, formatDate, calculateReadingTime } from "../../lib/blog"
 import Link from "next/link"
 import Image from "next/image"
 import { Clock } from "lucide-react"
+import type { Metadata } from "next"
 
 export const dynamic = "force-static"
+
+export const metadata: Metadata = {
+  title: "Blog | Raz Lifshitz",
+  description:
+    "Thoughts, stories, and ideas from my journey.",
+  openGraph: {
+    title: "Blog | Raz Lifshitz",
+    description:
+      "Thoughts, stories, and ideas from my journey.",
+    url: "https://razlifshitz.com/blog",
+    siteName: "Raz Lifshitz",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Raz Lifshitz Blog",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Raz Lifshitz",
+    description:
+      "Thoughts, stories, and ideas from my journey.",
+    images: ["/og-image.png"],
+    creator: "@razlifshitz",
+  },
+}
 
 export default function BlogPage() {
   const posts = getAllPosts()
