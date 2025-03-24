@@ -4,7 +4,7 @@ import BlogLayoutClient from "./BlogLayoutClient"
 
 export const metadata: Metadata = {
   title: "Raz Lifshitz - Blog",
-  description: "Thoughts, stories, and ideas from my journey as a developer.",
+  description: "Thoughts, stories, and ideas from my journey.",
 }
 
 export default function BlogLayout({

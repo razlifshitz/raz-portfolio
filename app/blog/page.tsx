@@ -16,7 +16,7 @@ export default function BlogPage() {
             <div className="text-center mb-16">
               <h1 className="text-4xl font-light text-gray-900 dark:text-white">Blog</h1>
               <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Thoughts, stories, and ideas from my journey as a developer.
+                Thoughts, stories, and ideas from my journey.
               </p>
             </div>
 
