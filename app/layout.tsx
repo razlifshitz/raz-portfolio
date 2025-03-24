@@ -9,44 +9,58 @@ import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: "Raz Lifshitz",
-  description: "Frontend Engineer, Chess Player, Photographer, and Maker",
-  generator: "v0.dev",
-  metadataBase: new URL("https://razlifshitz.com"), // Replace with your actual domain
-  openGraph: {
+// Define the base URL
+const baseUrl = "https://razlifshitz.com"
+
+// Convert static metadata to dynamic generateMetadata function
+export async function generateMetadata(): Promise<Metadata> {
+  return {
     title: "Raz Lifshitz",
     description: "Frontend Engineer, Chess Player, Photographer, and Maker",
-    url: "https://razlifshitz.com", // Replace with your actual domain
-    siteName: "Raz Lifshitz",
-    images: [
-      {
-        url: "/og-image.png", // This will be the thumbnail image
-        width: 1200,
-        height: 630,
-        alt: "Raz Lifshitz",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Raz Lifshitz",
-    description: "Frontend Engineer, Chess Player, Photographer, and Maker",
-    images: ["/og-image.png"], // Same image as OpenGraph
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/favicon-16x16.png", sizes: "16x16" },
-      { url: "/favicon-32x32.png", sizes: "32x32" },
-      { url: "/android-chrome-192x192.png", sizes: "192x192" },
-      { url: "/android-chrome-512x512.png", sizes: "512x512" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png" }],
-    shortcut: ["/favicon.ico"],
-  },
+    generator: "v0.dev",
+    metadataBase: new URL(baseUrl),
+    openGraph: {
+      title: "Raz Lifshitz",
+      description: "Frontend Engineer, Chess Player, Photographer, and Maker",
+      url: baseUrl,
+      siteName: "Raz Lifshitz",
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: "Raz Lifshitz",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Raz Lifshitz",
+      description: "Frontend Engineer, Chess Player, Photographer, and Maker",
+      creator: "@razlifshitz",
+      images: [
+        {
+          url: `${baseUrl}/razlifshitz_twitter.png`,
+          width: 800,
+          height: 800,
+          alt: "Raz Lifshitz",
+        },
+      ],
+    },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/favicon-16x16.png", sizes: "16x16" },
+        { url: "/favicon-32x32.png", sizes: "32x32" },
+        { url: "/android-chrome-192x192.png", sizes: "192x192" },
+        { url: "/android-chrome-512x512.png", sizes: "512x512" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png" }],
+      shortcut: ["/favicon.ico"],
+    },
+  }
 }
 
 export default function RootLayout({
@@ -73,6 +87,15 @@ try {
           }}
         />
         <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Explicit Twitter card meta tags for maximum compatibility */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@razlifshitz" />
+        <meta name="twitter:creator" content="@razlifshitz" />
+        <meta name="twitter:title" content="Raz Lifshitz" />
+        <meta name="twitter:description" content="Frontend Engineer, Chess Player, Photographer, and Maker" />
+        <meta name="twitter:image" content={`${baseUrl}/razlifshitz_twitter.png`} />
+        <meta name="twitter:image:alt" content="Raz Lifshitz" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
@@ -88,3 +111,4 @@ try {
 }
 
 import "./globals.css"
+
