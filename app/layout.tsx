@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "../components/theme-provider"
 import { PersistentLayout } from "../components/persistent-layout"
+import { ReCaptchaProvider } from "../components/recaptcha-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -73,13 +74,13 @@ try {
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <PersistentLayout>{children}</PersistentLayout>
+          <ReCaptchaProvider>
+            <PersistentLayout>{children}</PersistentLayout>
+          </ReCaptchaProvider>
         </ThemeProvider>
       </body>
     </html>
   )
 }
 
-
-
-import './globals.css'
+import "./globals.css"

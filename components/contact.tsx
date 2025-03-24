@@ -1,14 +1,16 @@
 "use client"
 
 import type React from "react"
-
 import { Button } from "../components/ui/button"
 import { useEffect, useRef, useState } from "react"
 import { useInView, useAnimation } from "framer-motion"
 import { Send, Coffee } from "lucide-react"
+import emailjs from "@emailjs/browser"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 
 export function Contact() {
   const ref = useRef(null)
+  const formRef = useRef<HTMLFormElement>(null)
   const isInView = useInView(ref, { once: false, amount: 0.05 })
   const mainControls = useAnimation()
   const [formState, setFormState] = useState({
@@ -24,6 +26,10 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [focusedField, setFocusedField] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  // Get reCAPTCHA execution function
+  const { executeRecaptcha } = useGoogleReCaptcha()
 
   useEffect(() => {
     if (isInView) {
@@ -98,25 +104,42 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitError(null)
 
     if (!validateForm()) return
+
+    // Check if reCAPTCHA is available
+    if (!executeRecaptcha) {
+      setSubmitError("reCAPTCHA not loaded. Please refresh the page and try again.")
+      return
+    }
 
     setIsSubmitting(true)
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Execute reCAPTCHA and get token
+      const token = await executeRecaptcha("contact_form")
 
-      // In a real implementation, you would call your serverless function here
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formState)
-      // })
+      // Prepare template parameters
+      const templateParams = {
+        name: formState.name,
+        email: formState.email,
+        message: formState.message,
+        "g-recaptcha-response": token,
+      }
+
+      // Send email using EmailJS
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "",
+      )
 
       setIsSubmitted(true)
     } catch (error) {
       console.error("Error sending message:", error)
+      setSubmitError("Failed to send message. Please try again later or contact me directly via email.")
     } finally {
       setIsSubmitting(false)
     }
@@ -135,10 +158,11 @@ export function Contact() {
       message: "",
     })
     setFocusedField(null)
+    setSubmitError(null)
   }
 
   return (
-    <section id="contact" ref={ref} className="py-20 bg-white dark:bg-gray-900">
+    <section id="contact" ref={ref} className="py-20 bg-teal-50 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-light text-gray-900 dark:text-white">Let's Connect</h2>
@@ -152,6 +176,7 @@ export function Contact() {
         <div className="max-w-md mx-auto">
           {!isSubmitted ? (
             <form
+              ref={formRef}
               onSubmit={handleSubmit}
               className="space-y-6 p-6 rounded-lg shadow-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
             >
@@ -260,6 +285,10 @@ export function Contact() {
                 {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
               </div>
 
+              {submitError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm">{submitError}</div>
+              )}
+
               <Button
                 type="submit"
                 className="w-full bg-blue-500 hover:bg-blue-600 inline-flex items-center justify-center dark:bg-blue-600 dark:hover:bg-blue-700"
@@ -278,6 +307,29 @@ export function Contact() {
                   </>
                 )}
               </Button>
+
+              {/* Privacy note */}
+              <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-4">
+                This site is protected by reCAPTCHA and the Google
+                <a
+                  href="https://policies.google.com/privacy"
+                  className="text-blue-500 hover:underline mx-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </a>
+                and
+                <a
+                  href="https://policies.google.com/terms"
+                  className="text-blue-500 hover:underline mx-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Terms of Service
+                </a>
+                apply.
+              </p>
             </form>
           ) : (
             <div className="text-center py-10 p-8 rounded-lg shadow-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
