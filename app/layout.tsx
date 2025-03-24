@@ -33,6 +33,17 @@ export const metadata: Metadata = {
     description: "Frontend Engineer, Chess Player, Photographer, and Maker",
     images: ["/og-image.png"], // Same image as OpenGraph
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-16x16.png", sizes: "16x16" },
+      { url: "/favicon-32x32.png", sizes: "32x32" },
+      { url: "/android-chrome-192x192.png", sizes: "192x192" },
+      { url: "/android-chrome-512x512.png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png" }],
+    shortcut: ["/favicon.ico"],
+  },
 }
 
 export default function RootLayout({
@@ -48,16 +59,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
 (function() {
-  try {
-    const mode = localStorage.getItem('theme');
-    if (mode === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-  } catch (e) {}
+try {
+  const mode = localStorage.getItem('theme');
+  if (mode === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+} catch (e) {}
 })();
 `,
           }}
         />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
