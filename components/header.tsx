@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Menu, X, Moon, Sun } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
@@ -10,11 +10,13 @@ import { useTheme } from "next-themes"
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const [activeSection, setActiveSection] = useState("")
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
+  const lastScrollY = useRef(0)
 
   // Define our colors
   const primaryBlue = "rgb(75, 161, 204)"
@@ -37,7 +39,19 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
+      const currentScrollY = window.scrollY
+
+      // Determine if we should show/hide header based on scroll direction
+      if (currentScrollY > lastScrollY.current + 20 && currentScrollY > 100) {
+        // Scrolling down - hide header
+        setIsVisible(false)
+      } else if (currentScrollY < lastScrollY.current - 5 || currentScrollY < 100) {
+        // Scrolling up or near top - show header
+        setIsVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
+      setScrolled(currentScrollY > 10)
 
       // Only track sections on home page
       if (pathname === "/") {
@@ -153,7 +167,7 @@ export function Header() {
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm" : "bg-transparent dark:bg-gray-900/90"
-      }`}
+      } ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       style={{ height: headerHeight }}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
