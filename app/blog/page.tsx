@@ -24,7 +24,7 @@ export default function BlogPage() {
               <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-2">
                 {posts.map((post) => (
                   <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-                    <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 hover:shadow-md">
+                    <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 hover:shadow-md h-full flex flex-col">
                       {post.image && (
                         <div className="relative w-full h-48 overflow-hidden">
                           <Image
@@ -37,7 +37,7 @@ export default function BlogPage() {
                           />
                         </div>
                       )}
-                      <div className="p-6">
+                      <div className="p-6 flex flex-col flex-grow">
                         <div className="flex items-center justify-between">
                           <time dateTime={post.date} className="text-sm text-gray-500 dark:text-gray-400">
                             {formatDate(post.date)}
@@ -47,10 +47,15 @@ export default function BlogPage() {
                             <span>{calculateReadingTime(post.content)} min read</span>
                           </div>
                         </div>
-                        <h3 className="mt-2 text-xl font-medium text-gray-900 dark:text-white">{post.title}</h3>
 
+                        {/* Title with max 3 lines but no fixed height */}
+                        <h3 className="mt-2 text-xl font-medium text-gray-900 dark:text-white line-clamp-3 min-h-[28px]">
+                          {post.title}
+                        </h3>
+
+                        {/* Tags with conditional margin based on content */}
                         {post.tags && post.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-2 mt-3 mb-4">
+                          <div className="flex flex-wrap gap-2 mt-3">
                             {post.tags.map((tag) => (
                               <span
                                 key={tag}
@@ -62,7 +67,10 @@ export default function BlogPage() {
                           </div>
                         )}
 
-                        <p className="mt-3 text-gray-600 dark:text-gray-300 line-clamp-2">{post.description}</p>
+                        {/* Description with auto-expanding space */}
+                        <p className="mt-3 text-gray-600 dark:text-gray-300 line-clamp-3 flex-grow">
+                          {post.description}
+                        </p>
                       </div>
                     </div>
                   </Link>
