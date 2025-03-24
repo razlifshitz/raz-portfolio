@@ -162,7 +162,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" ref={ref} className="py-20 bg-teal-50 dark:bg-gray-900">
+    <section id="contact" ref={ref} className="py-20 bg-blue-50 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-light text-gray-900 dark:text-white">Let's Connect</h2>
