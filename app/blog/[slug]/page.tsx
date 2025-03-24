@@ -4,7 +4,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Clock } from "lucide-react"
 import { MarkdownRenderer } from "../../../components/markdown-renderer"
-import { ReadingProgressBar } from "../../../components/reading-progress-bar"
 
 export const dynamic = "force-static"
 
@@ -31,7 +30,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      <ReadingProgressBar />
       <main>
         <article className="py-10 bg-white dark:bg-gray-900 pt-24 md:pt-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -82,6 +80,16 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             )}
 
             <MarkdownRenderer content={post.content} />
+
+            <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to all posts
+              </Link>
+            </div>
           </div>
         </article>
       </main>

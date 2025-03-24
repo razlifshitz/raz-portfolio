@@ -1,9 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useTheme } from "next-themes"
 
 export function ReadingProgressBar() {
   const [readingProgress, setReadingProgress] = useState(0)
+  const { resolvedTheme } = useTheme()
 
   useEffect(() => {
     const updateReadingProgress = () => {
@@ -23,10 +25,20 @@ export function ReadingProgressBar() {
   }, [])
 
   return (
-    <div className="sticky top-16 left-0 w-full h-1 z-40 bg-gray-100 dark:bg-gray-800">
+    <div
+      className="fixed top-0 left-0 w-full h-1 z-[9999]"
+      style={{
+        pointerEvents: "none",
+        backgroundColor: resolvedTheme === "dark" ? "#1f2937" : "#f3f4f6", // Match original dark:bg-gray-800 and bg-gray-100
+      }}
+    >
       <div
-        className="h-full bg-primary transition-all duration-100 ease-out"
-        style={{ width: `${readingProgress}%` }}
+        className="h-full"
+        style={{
+          width: `${readingProgress}%`,
+          backgroundColor: "rgb(75, 161, 204)", // Match your primary blue color
+          transition: "width 100ms ease-out",
+        }}
       />
     </div>
   )

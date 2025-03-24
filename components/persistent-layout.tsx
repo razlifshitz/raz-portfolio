@@ -6,6 +6,7 @@ import { Header } from "./header"
 import { Footer } from "./footer"
 import { PageTransition } from "./page-transition"
 import { usePathname } from "next/navigation"
+import { ReadingProgressBar } from "./reading-progress-bar"
 
 export function PersistentLayout({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -28,8 +29,13 @@ export function PersistentLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
+  const isBlogPost = pathname.startsWith("/blog/") && pathname !== "/blog/"
+
   return (
     <>
+      {/* Reading Progress Bar - only shown on blog posts */}
+      {isBlogPost && <ReadingProgressBar />}
+
       <Header key="persistent-header" />
       <PageTransition />
       <main key={`page-${pathname}`} className="hardware-accelerated">
