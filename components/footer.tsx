@@ -2,9 +2,10 @@
 
 import type React from "react"
 
-import { Github, Linkedin, Mail, Twitter, Camera, Phone } from "lucide-react"
+import { Github, Linkedin, Mail, Twitter, Camera, Phone, FileText } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
+import { downloadCV } from "@/lib/utils"
 
 export function Footer() {
   const router = useRouter()
@@ -88,6 +89,15 @@ export function Footer() {
             >
               <Camera className="h-5 w-5" />
               <span className="sr-only">500px</span>
+            </Link>
+            <Link
+              href="/raz-lifshitz-cv.pdf"
+              download
+              className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              onClick={downloadCV}
+            >
+              <FileText className="h-5 w-5" />
+              <span className="sr-only">Download CV</span>
             </Link>
           </div>
         </div>

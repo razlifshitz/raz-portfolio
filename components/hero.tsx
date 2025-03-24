@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowDown, Github, Linkedin, Mail, Twitter, Camera } from "lucide-react"
+import { ArrowDown, Github, Linkedin, Mail, Twitter, Camera, FileText } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { downloadCV } from "@/lib/utils"
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(false)
@@ -147,6 +148,15 @@ export function Hero() {
                 <Camera className="h-5 w-5" />
                 <span className="sr-only">500px</span>
               </Link>
+              <Link
+                href="/raz-lifshitz-cv.pdf"
+                download
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                onClick={downloadCV}
+              >
+                <FileText className="h-5 w-5" />
+                <span className="sr-only">Download CV</span>
+              </Link>
             </motion.div>
 
             {/* Arrow still centered */}
@@ -228,6 +238,15 @@ export function Hero() {
               >
                 <Camera className="h-5 w-5" />
                 <span className="sr-only">500px</span>
+              </Link>
+              <Link
+                href="/raz-lifshitz-cv.pdf"
+                download
+                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+                onClick={downloadCV}
+              >
+                <FileText className="h-5 w-5" />
+                <span className="sr-only">Download CV</span>
               </Link>
             </motion.div>
           </div>
