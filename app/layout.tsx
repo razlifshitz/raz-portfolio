@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "../components/theme-provider"
 import { PersistentLayout } from "../components/persistent-layout"
 import { ReCaptchaProvider } from "../components/recaptcha-provider"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -75,6 +76,7 @@ try {
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <ReCaptchaProvider>
+            <SpeedInsights />
             <PersistentLayout>{children}</PersistentLayout>
           </ReCaptchaProvider>
         </ThemeProvider>
