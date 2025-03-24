@@ -9,8 +9,6 @@ export const post: BlogPost = {
   image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2070&auto=format&fit=crop",
   tags: ["AI", "Development", "Productivity", "Opinion"],
   content: `
-# The 100x Developer: How AI is Redefining Our Role
-
 I've heard the term "10x developer" thrown around for years, but I think we need to update our vocabulary. With AI tools, we're not looking at 10x developers anymore—we're looking at **100x developers**.
 
 ## The Moment of Realization
