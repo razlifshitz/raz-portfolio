@@ -4,11 +4,13 @@ import type { BlogPost } from "./blog-types"
 // Import all blog posts
 import { post as dynamicMenuPost } from "./blog-posts/dynamic-menu-with-silent-cache"
 import { post as aiDeveloperPost } from "./blog-posts/ai-100x-developer"
+import { post as timeAsInvestment } from "./blog-posts/time-as-investment"
 
 // Add all blog posts to this array
 export const blogPosts: BlogPost[] = [
   dynamicMenuPost,
   aiDeveloperPost,
+  timeAsInvestment
   // Add more posts here as you create them
 ]
 
