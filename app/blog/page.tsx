@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Clock } from "lucide-react"
 import type { Metadata } from "next"
+import { MOBILE_BREAKPOINT } from "@/lib/constants"
 
 export const dynamic = "force-static"
 
@@ -64,7 +65,7 @@ export default function BlogPage() {
                             alt={post.title || "Blog post image"}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            sizes="(max-width: 768px) 100vw, 50vw"
+                            sizes={`(max-width: ${MOBILE_BREAKPOINT}px) 100vw, 50vw`}
                             priority
                           />
                         </div>

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { ArrowLeft, Clock } from "lucide-react"
 import { MarkdownRenderer } from "../../../components/markdown-renderer"
 import type { Metadata, ResolvingMetadata } from "next"
+import { MOBILE_BREAKPOINT } from "@/lib/constants"
 
 export const dynamic = "force-static"
 
@@ -120,7 +121,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                   alt={post.title}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes={`(max-width: ${MOBILE_BREAKPOINT}px) 100vw, (max-width: 1200px) 50vw, 33vw`}
                   priority
                 />
               </div>

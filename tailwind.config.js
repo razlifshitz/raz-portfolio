@@ -1,3 +1,5 @@
+const { BREAKPOINTS } = require("./lib/constants")
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -12,6 +14,11 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    screens: {
+      'sm': `${BREAKPOINTS.mobile}px`,
+      'md': `${BREAKPOINTS.tablet}px`,
+      'lg': `${BREAKPOINTS.desktop}px`,
     },
     extend: {
       colors: {

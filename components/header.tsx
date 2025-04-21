@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Menu, X, Moon, Sun } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
+import { MOBILE_BREAKPOINT, THEME } from "@/lib/constants"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -19,8 +20,8 @@ export function Header() {
   const lastScrollY = useRef(0)
 
   // Define our colors
-  const primaryBlue = "rgb(75, 161, 204)"
-  const darkModeBlue = "#60a5ff"
+  const primaryBlue = THEME.primaryBlue
+  const darkModeBlue = THEME.darkModeBlue
 
   // After mounting, we can safely show the UI that depends on the theme
   useEffect(() => {
@@ -42,12 +43,17 @@ export function Header() {
       const currentScrollY = window.scrollY
 
       // Determine if we should show/hide header based on scroll direction
-      if (currentScrollY > lastScrollY.current + 20 && currentScrollY > 100) {
-        // Scrolling down - hide header
-        setIsVisible(false)
-      } else if (currentScrollY < lastScrollY.current - 5 || currentScrollY < 100) {
-        // Scrolling up or near top - show header
+      // For desktop on home page, always show header
+      if (window.innerWidth >= MOBILE_BREAKPOINT && pathname === "/") {
         setIsVisible(true)
+      } else {
+        if (currentScrollY > lastScrollY.current + 20 && currentScrollY > 100) {
+          // Scrolling down - hide header
+          setIsVisible(false)
+        } else if (currentScrollY < lastScrollY.current - 5 || currentScrollY < 100) {
+          // Scrolling up or near top - show header
+          setIsVisible(true)
+        }
       }
 
       lastScrollY.current = currentScrollY
@@ -78,6 +84,8 @@ export function Header() {
     }
 
     window.addEventListener("scroll", handleScroll)
+    // Add resize listener to handle window size changes
+    window.addEventListener("resize", handleScroll)
 
     // Disable body scroll when menu is open
     if (isMenuOpen) {
@@ -88,6 +96,7 @@ export function Header() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleScroll)
       document.body.style.overflow = ""
     }
   }, [isMenuOpen, pathname])
