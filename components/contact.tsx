@@ -338,7 +338,7 @@ export function Contact() {
               </div>
               <h2 className="text-3xl font-light text-gray-900 dark:text-white mb-4">Coffee's brewing!</h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-md mx-auto mb-6">
-                I can already smell the coffee beans grinding. Thanks for reaching out—I'll get back to you soon!
+                I can already smell the coffee beans grinding. Thanks for reaching out - I'll get back to you soon!
               </p>
               <Button
                 onClick={resetForm}
